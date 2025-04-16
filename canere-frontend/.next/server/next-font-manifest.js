@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST='{"pages":{},"app":{"/home/dell/\xc1rea de trabalho/canere/canere-frontend/src/app/layout":["static/media/569ce4b8f30dc480-s.p.woff2","static/media/93f479601ee12b01-s.p.woff2"],"/home/dell/\xc1rea de trabalho/canere/canere-frontend/src/app/page":["static/media/b08a6a2a0c4f713d-s.p.woff2"]},"appUsingSizeAdjust":true,"pagesUsingSizeAdjust":false}';

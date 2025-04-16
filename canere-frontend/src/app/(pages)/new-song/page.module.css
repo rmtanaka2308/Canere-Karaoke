@@ -1,0 +1,217 @@
+.background {
+    background-image: url('/HomeBackground.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+    gap: 32px;
+    position: relative;
+}
+
+.topLeft {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+}
+
+.title {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px #000;
+    background: rgba(255, 127, 0, 0.25);
+    border-radius: 16px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 500px;
+    gap: 12px;
+}
+
+.songInput {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1rem;
+    font-family: Helvetica, Arial, sans-serif;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
+
+.songInput:focus {
+    border-color: #ff7f00;
+    box-shadow: 0 0 4px rgba(255, 127, 0, 0.6);
+}
+
+.fileInput {
+    display: none;
+}
+
+.uploadedList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 80%;
+    max-width: 500px;
+}
+
+.uploadedItem {
+    background: linear-gradient(to bottom, #ffe0b3, #ffc266);
+    border: 1px solid #cc8400;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: #663300;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.uploadedItem:hover {
+    transform: scale(1.02);
+}
+
+.saveButton {
+    margin-top: 24px;
+    background: linear-gradient(to bottom, #66cc66, #339933);
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 16px;
+    border: 2px solid #2a7b2a;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.saveButton:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to bottom, #7be07b, #3cb33c);
+}
+
+.uploadedItem {
+    background: linear-gradient(to bottom, #ffe0b3, #ffc266);
+    border: 1px solid #cc8400;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: #663300;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.deleteButton {
+    background: linear-gradient(to bottom, #ff6666, #cc0000);
+    border: 1px solid #990000;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.deleteButton:hover {
+    transform: scale(1.1);
+    background: linear-gradient(to bottom, #ff4444, #aa0000);
+}
+
+.saveButton {
+    margin-top: 24px;
+    background: linear-gradient(to bottom, #66cc66, #339933);
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 16px;
+    border: 2px solid #2a7b2a;
+    font-family: Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 3px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.saveButton:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to bottom, #7be07b, #3cb33c);
+}
+
+.saveButton {
+    margin-top: 24px;
+    background: linear-gradient(to bottom, #99ffcc, #33cc99);
+    color: #004d33;
+    font-weight: bold;
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 12px 24px;
+    border: 1px solid #009966;
+    border-radius: 16px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 3px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.saveButton:hover {
+    transform: scale(1.03);
+    background: linear-gradient(to bottom, #b3ffe0, #4dd4aa);
+}
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, #ccffcc, #99e699);
+    border: 1px solid #66cc66;
+    padding: 14px 24px;
+    border-radius: 16px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    color: #006600;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    animation: fadeInOut 3s ease-in-out forwards;
+    z-index: 1000;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+}

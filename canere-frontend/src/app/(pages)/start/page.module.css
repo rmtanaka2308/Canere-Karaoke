@@ -1,0 +1,23 @@
+.background {
+  background-image: url('/HomeBackground.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20vh;
+  gap: 32px;
+
+  position: relative;
+  /* necessário para posicionar o botão */
+}
+
+.topLeft {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}

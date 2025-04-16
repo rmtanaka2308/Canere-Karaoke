@@ -1,0 +1,24 @@
+.background {
+  background-image: url('/HomeBackground.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding-top: 20vh;
+  /* this moves the logo higher */
+  gap: 32px;
+  /* space between elements if you add more */
+}
+
+
+.logoContainer {
+  /* margin-top: -500px; */
+  display: flex;
+  justify-content: center;
+}
