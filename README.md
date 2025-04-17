@@ -55,12 +55,6 @@ Este projeto surgiu com o objetivo de praticar a criação de projetos reais com
 
 ---
 
-## 📜 Licença
-
-MIT License
-
----
-
 ## 📬 Contato
 
 Ricardo Tanaka  
