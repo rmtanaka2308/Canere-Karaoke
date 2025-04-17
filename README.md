@@ -32,7 +32,7 @@ cd canere-karaoke
 
 ### 2. Rodar o backend
 ```bash
-cd backend
+cd canere-backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -41,7 +41,7 @@ uvicorn main:app --reload
 
 ### 3. Rodar o frontend
 ```bash
-cd frontend
+cd canere-frontend
 npm install
 npm run dev
 ```
