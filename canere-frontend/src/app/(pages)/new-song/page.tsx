@@ -11,28 +11,46 @@ export default function NewSongPage() {
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [uploadedSongs, setUploadedSongs] = useState<string[]>([])
-    const [saved, setSaved] = useState(false)
+    // const [saved, setSaved] = useState(false)
     const [showToast, setShowToast] = useState(false)
+    const [pendingUploads, setPendingUploads] = useState<{ file: File, name: string }[]>([])
 
     const fileInputRef = useRef<HTMLInputElement>(null)
 
-    const handleSaveSongs = () => {
-        if (uploadedSongs.length === 0) return
+    const handleSaveSongs = async () => {
+        if (pendingUploads.length === 0) return
 
-        // simula envio para o backend
+        for (const { file, name } of pendingUploads) {
+            const formData = new FormData()
+            formData.append("file", file)
+            formData.append("filename", name)
+
+            try {
+                const res = await fetch("http://localhost:8000/upload", {
+                    method: "POST",
+                    body: formData,
+                })
+
+                if (!res.ok) throw new Error("Failed to upload")
+                console.log("Uploaded:", name)
+            } catch (err) {
+                console.error("Upload error:", err)
+            }
+        }
+
+        setPendingUploads([])
         setUploadedSongs([])
         setShowToast(true)
-
-        setTimeout(() => {
-            setShowToast(false)
-        }, 3000)
+        setTimeout(() => setShowToast(false), 3000)
     }
+
 
     const handleSongNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && songName.trim()) {
             fileInputRef.current?.click()
         }
     }
+
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]
@@ -49,6 +67,7 @@ export default function NewSongPage() {
                 clearInterval(interval)
                 setTimeout(() => {
                     setUploading(false)
+                    setPendingUploads((prev) => [...prev, { file, name: songName }])
                     setUploadedSongs((prev) => [...prev, songName])
                     setSongName("")
                     if (fileInputRef.current) fileInputRef.current.value = ""
@@ -57,6 +76,7 @@ export default function NewSongPage() {
             setProgress(Math.floor(prog))
         }, 200)
     }
+
 
     return (
         <main className={styles.background}>
@@ -79,7 +99,7 @@ export default function NewSongPage() {
             <input
                 ref={fileInputRef}
                 type="file"
-                // accept=".mp3"
+                accept=".mp3"
                 className={styles.fileInput}
                 onChange={handleFileChange}
             />
@@ -93,21 +113,13 @@ export default function NewSongPage() {
                 }
             />
 
-            {uploadedSongs.length > 0 && !saved && (
-                <button className={styles.saveButton} onClick={() => {
-                    // simula envio pro backend
-                    setUploadedSongs([])
-                    setSaved(true)
-                }}>
+            {uploadedSongs.length > 0 && (
+                <button className={styles.saveButton} onClick={handleSaveSongs}>
                     💾 Save Songs
                 </button>
             )}
 
-            {uploadedSongs.length > 0 && (
-                <button disabled={uploadedSongs.length < 1} className={styles.saveButton} onClick={handleSaveSongs}>
-                    💾 Save Songs
-                </button>
-            )}
+            {/* TODO: acho que não esta enviando com o nome certo... */}
 
             {showToast && (
                 <div className={styles.toast}>
