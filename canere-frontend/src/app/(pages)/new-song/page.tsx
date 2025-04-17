@@ -5,6 +5,7 @@ import styles from "@/app/(pages)/new-song/page.module.css"
 import BackButton from "@/components/BackButton/BackButton"
 import ProgressBar from "@/components/ProgressBar/ProgressBar"
 import UploadedSongList from "@/components/UploadedSongList/UploadedSongList"
+import { sendSongToDb } from "@/app/services/dbServices"
 
 export default function NewSongPage() {
     const [songName, setSongName] = useState("")
@@ -24,18 +25,7 @@ export default function NewSongPage() {
             const formData = new FormData()
             formData.append("file", file)
             formData.append("filename", name)
-
-            try {
-                const res = await fetch("http://localhost:8000/upload", {
-                    method: "POST",
-                    body: formData,
-                })
-
-                if (!res.ok) throw new Error("Failed to upload")
-                console.log("Uploaded:", name)
-            } catch (err) {
-                console.error("Upload error:", err)
-            }
+            await sendSongToDb(formData)
         }
 
         setPendingUploads([])
@@ -119,7 +109,6 @@ export default function NewSongPage() {
                 </button>
             )}
 
-            {/* TODO: acho que não esta enviando com o nome certo... */}
 
             {showToast && (
                 <div className={styles.toast}>
