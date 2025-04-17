@@ -1,36 +1,36 @@
 # 🎤 Canere-Karaoke
 
-**Canere-Karaoke** é um projeto pessoal de karaokê automático.
+**Canere-Karaoke** is a personal project for automatic karaoke generation.
 
-Este jogo permite que usuários façam upload de músicas `.mp3` e o sistema automaticamente:
-1. Remove os vocais,
-2. Transcreve a letra,
-3. Sincroniza com os timestamps corretos,
-4. Reproduz o instrumental com um player estilo karaoke dinâmico e retrô ✨
+This game allows users to upload `.mp3` files, and the system automatically:
+1. Removes the vocals,
+2. Transcribes the lyrics,
+3. Syncs them with accurate timestamps,
+4. Plays the instrumental with a dynamic retro-style karaoke player ✨
 
 ---
 
-## 🔧 Tecnologias Utilizadas
+## 🔧 Technologies Used
 
 ### Frontend (Next.js + TypeScript)
 - `Next.js` + `TypeScript`
 
 ### Backend (FastAPI + Python)
-- Usa **Spleeter** para separar vocais e instrumentais
-- Usa **Whisper** para transcrever e sincronizar as letras
-- Retorna a faixa instrumental + `.json` da letra com timestamps
+- Uses **Spleeter** to separate vocals and instrumentals
+- Uses **Whisper** to transcribe and synchronize lyrics
+- Returns the instrumental track + `.json` file with synced lyrics and timestamps
 
 ---
 
-## ⚙️ Como rodar localmente
+## ⚙️ How to Run Locally
 
-### 1. Clone o projeto
+### 1. Clone the project
 ```bash
 git clone https://github.com/seu-user/canere-karaoke.git
 cd canere-karaoke
 ```
 
-### 2. Rodar o backend
+### 2. Run the backend
 ```bash
 cd canere-backend
 python3 -m venv venv
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-### 3. Rodar o frontend
+### 3. Run the frontend
 ```bash
 cd canere-frontend
 npm install
@@ -48,14 +48,13 @@ npm run dev
 
 ---
 
+## 🧠 Motivation
 
-## 🧠 Motivação
-
-Este projeto surgiu com o objetivo de praticar a criação de projetos reais com tecnologias atuais e me divertir fazendo isso!
+This project was created to practice building real-world projects with modern technologies and to have fun doing it!
 
 ---
 
-## 📬 Contato
+## 📬 Contact
 
 Ricardo Tanaka  
 [LinkedIn](https://www.linkedin.com/in/tanakaricardo/)
