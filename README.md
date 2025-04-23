@@ -3,58 +3,53 @@
 **Canere-Karaoke** is a personal project for automatic karaoke generation.
 
 This game allows users to upload `.mp3` files, and the system automatically:
-1. Removes the vocals,
-2. Transcribes the lyrics,
+1. Removes the vocals (with [Spleeter](https://github.com/deezer/spleeter)),
+2. Transcribes the lyrics (with [Whisper](https://github.com/openai/whisper)),
 3. Syncs them with accurate timestamps,
-4. Plays the instrumental with a dynamic retro-style karaoke player ✨
+4. Plays the instrumental with a dynamic retro-style karaoke player
 
 ---
 
 ## 🔧 Technologies Used
 
-### Frontend 
-- `Next.js` + `TypeScript`
+###  Frontend
+- Next.js + TypeScript
 
-### Backend (FastAPI + Python)
-- Uses **Spleeter** to separate vocals and instrumentals
-- Uses **Whisper** to transcribe and synchronize lyrics
-- Returns the instrumental track + `.json` file with synced lyrics and timestamps
+###  Backend (Python + FastAPI)
+-  Spleeter: vocal/instrumental separation
+-  Whisper: lyric transcription & timestamp alignment
+-  Supabase: audio storage & metadata database
 
 ---
 
-## ⚙️ How to Run Locally
+##  How to Run Locally
 
-### 1. Clone the project
-```bash
-git clone https://github.com/seu-user/canere-karaoke.git
-cd canere-karaoke
-```
+### 1. Setup the backend
 
-### 2. Run the backend
 ```bash
 cd canere-backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-uvicorn main:app --reload
 ```
 
-### 3. Run the frontend
+**Make sure `ffmpeg` is installed**:
+
+
+### 3. Setup the frontend
+
 ```bash
-cd canere-frontend
+cd ../canere-frontend
 npm install
-npm run dev
 ```
 
----
-
-## 🧠 Motivation
-
-This project was created to practice building real-world projects with modern technologies and to have fun doing it!
+### 3. Run the project
+```bash
+./run.sh
+```
 
 ---
 
 ## 📬 Contact
-
-Ricardo Tanaka  
+**Ricardo Tanaka**  
 [LinkedIn](https://www.linkedin.com/in/tanakaricardo/)
