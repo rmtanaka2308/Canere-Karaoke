@@ -6,42 +6,38 @@ This game allows users to upload `.mp3` files, and the system automatically:
 1. Removes the vocals (with [Spleeter](https://github.com/deezer/spleeter)),
 2. Transcribes the lyrics (with [Whisper](https://github.com/openai/whisper)),
 3. Syncs them with accurate timestamps,
-4. Plays the instrumental with a dynamic retro-style karaoke player
 
 ---
 
-## 🔧 Technologies Used
+## 🔧 Technologies 
 
-###  Frontend
+### Frontend
 - Next.js + TypeScript
 
-###  Backend (Python + FastAPI)
--  Spleeter: vocal/instrumental separation
--  Whisper: lyric transcription & timestamp alignment
--  Supabase: audio storage & metadata database
+### Backend 
+- Python + FastAPI
+- Spleeter: vocal/instrumental separation
+- Whisper: transcription + timestamps
+- Supabase: audio file storage + song metadata database
 
 ---
 
-##  How to Run Locally
+## ⚙️ How to Run Locally
 
-### 1. Setup the backend
-
+### 1. Clone the project
 ```bash
-cd canere-backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+git clone https://github.com/your-user/canere-karaoke.git
+cd canere-karaoke
 ```
 
-**Make sure `ffmpeg` is installed**:
-
-
-### 3. Setup the frontend
-
+### 2. Install all dependencies
 ```bash
-cd ../canere-frontend
-npm install
+./install_all.sh
 ```
+
+> ✅ Make sure `ffmpeg` is installed
+
+---
 
 ### 3. Run the project
 ```bash
@@ -51,5 +47,6 @@ npm install
 ---
 
 ## 📬 Contact
+
 **Ricardo Tanaka**  
 [LinkedIn](https://www.linkedin.com/in/tanakaricardo/)
