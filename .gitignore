@@ -73,3 +73,5 @@ Thumbs.db
 
 # Supabase cache (optional)
 .supabase/
+
+canere-backend/pretrained_models/
