@@ -12,7 +12,7 @@ This game allows users to upload `.mp3` files, and the system automatically:
 
 ## 🔧 Technologies Used
 
-### Frontend (Next.js + TypeScript)
+### Frontend 
 - `Next.js` + `TypeScript`
 
 ### Backend (FastAPI + Python)

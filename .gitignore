@@ -29,3 +29,47 @@ Thumbs.db
 
 # Env
 .env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.env
+*.env
+*.sqlite3
+
+# Virtual envs
+venv/
+spleeter-env/
+
+# Node
+node_modules/
+.next/
+out/
+dist/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.mp3
+*.wav
+*.ogg
+*.flac
+*.m4a
+/tmp/
+*.log
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Supabase cache (optional)
+.supabase/

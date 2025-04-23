@@ -6,6 +6,7 @@ import BackButton from "@/components/BackButton/BackButton"
 import ProgressBar from "@/components/ProgressBar/ProgressBar"
 import UploadedSongList from "@/components/UploadedSongList/UploadedSongList"
 import { sendSongToDb } from "@/app/services/dbServices"
+import { separateSong } from "@/app/services/spleeterServices"
 
 export default function NewSongPage() {
     const [songName, setSongName] = useState("")
@@ -19,20 +20,26 @@ export default function NewSongPage() {
     const fileInputRef = useRef<HTMLInputElement>(null)
 
     const handleSaveSongs = async () => {
-        if (pendingUploads.length === 0) return
+        if (pendingUploads.length === 0) return;
 
         for (const { file, name } of pendingUploads) {
-            const formData = new FormData()
-            formData.append("file", file)
-            formData.append("filename", name)
-            await sendSongToDb(formData)
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("filename", name);
+
+            const song_id = await sendSongToDb(formData);
+            if (song_id) {
+                await separateSong(song_id, name);
+
+            }
         }
 
-        setPendingUploads([])
-        setUploadedSongs([])
-        setShowToast(true)
-        setTimeout(() => setShowToast(false), 3000)
-    }
+        setPendingUploads([]);
+        setUploadedSongs([]);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
+    };
+
 
 
     const handleSongNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

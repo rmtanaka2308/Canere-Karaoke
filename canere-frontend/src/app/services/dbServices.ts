@@ -7,19 +7,22 @@ export interface Song {
   created_at: string
 }
 
-export async function sendSongToDb(formData: FormData): Promise<void> {
+export async function sendSongToDb(formData: FormData): Promise<string> {
   try {
     const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
-    })
+    });
 
-    if (!res.ok) throw new Error("Failed to upload")
-    console.log("✅ Uploaded")
+    if (!res.ok) throw new Error("Failed to upload");
+    const data = await res.json();
+    return data.id as string;
   } catch (err) {
-    console.error("❌ Upload error:", err)
+    console.error("❌ Upload error:", err);
+    throw err;
   }
 }
+
 
 export async function get15Songs(page = 1, limit = 15): Promise<Song[]> {
   try {
