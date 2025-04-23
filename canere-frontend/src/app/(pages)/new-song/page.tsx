@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import styles from "@/app/(pages)/new-song/page.module.css"
 import BackButton from "@/components/BackButton/BackButton"
 import ProgressBar from "@/components/ProgressBar/ProgressBar"
@@ -13,14 +13,31 @@ export default function NewSongPage() {
     const [uploading, setUploading] = useState(false)
     const [progress, setProgress] = useState(0)
     const [uploadedSongs, setUploadedSongs] = useState<string[]>([])
-    // const [saved, setSaved] = useState(false)
+    const [processing, setProcessing] = useState(false)
+    const [errorToast, setErrorToast] = useState(false)
+    const [dotCount, setDotCount] = useState(1)
+
     const [showToast, setShowToast] = useState(false)
     const [pendingUploads, setPendingUploads] = useState<{ file: File, name: string }[]>([])
 
     const fileInputRef = useRef<HTMLInputElement>(null)
 
+
+    useEffect(() => {
+        if (!processing) return
+
+        const interval = setInterval(() => {
+            setDotCount((prev) => (prev + 1) % 4) // 0 → 1 → 2 → 3 → 0
+        }, 500)
+
+        return () => clearInterval(interval)
+    }, [processing])
+
+
     const handleSaveSongs = async () => {
         if (pendingUploads.length === 0) return;
+
+        setProcessing(true)
 
         for (const { file, name } of pendingUploads) {
             const formData = new FormData();
@@ -29,16 +46,23 @@ export default function NewSongPage() {
 
             const song_id = await sendSongToDb(formData);
             if (song_id) {
-                await separateSong(song_id, name);
-
+                const success = await separateSong(song_id, name);
+                if (!success) {
+                    setErrorToast(true);
+                    setProcessing(false);
+                    setTimeout(() => setErrorToast(false), 3000);
+                    return;
+                }
             }
         }
 
+        setProcessing(false);
         setPendingUploads([]);
         setUploadedSongs([]);
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
     };
+
 
 
 
@@ -111,15 +135,37 @@ export default function NewSongPage() {
             />
 
             {uploadedSongs.length > 0 && (
-                <button className={styles.saveButton} onClick={handleSaveSongs}>
-                    💾 Save Songs
+                <button
+                    className={styles.saveButton}
+                    onClick={handleSaveSongs}
+                    disabled={processing}
+                >
+                    {processing ? (
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <span>🔄 Separating vocals{'.'.repeat(dotCount)}</span>
+                            <span style={{ fontSize: "0.8rem", opacity: 0.8 }}>
+                                This may take a while
+                            </span>
+                        </div>
+                    ) : (
+                        '💾 Save Songs'
+                    )}
                 </button>
+
             )}
+
+
 
 
             {showToast && (
                 <div className={styles.toast}>
                     ✅ Songs Saved Successfully
+                </div>
+            )}
+
+            {errorToast && (
+                <div className={styles.toast}>
+                    ❌ Failed to process song
                 </div>
             )}
 

@@ -81,45 +81,36 @@ def delete_song(id: str = Query(...)):
 
 @app.post("/separate")
 async def separate_song(id: str = Form(...), filename: str = Form(...)):
-    # Busca o caminho real do arquivo
     row = supabase.table("songs").select("storage_path").eq("id", id).single().execute()
     if not row.data:
         raise HTTPException(status_code=404, detail="Música não encontrada")
 
     storage_path = row.data["storage_path"]
     mp3_path = f"/tmp/{id}_{filename}.mp3"
+    output_dir = f"/tmp/{id}_out"
+    song_folder = Path(mp3_path).stem
 
-    # Faz o download do .mp3 do Supabase
     audio_bytes = supabase.storage.from_("karaoke-songs").download(storage_path)
     with open(mp3_path, "wb") as f:
         f.write(audio_bytes)
 
-    # Caminho do script e do python do venv
     spleeter_python = os.path.join(os.getcwd(), "spleeter-env", "bin", "python")
     spleeter_script = os.path.join(os.getcwd(), "run_spleeter.py")
-
-    output_dir = f"/tmp/{id}_out"
-
-    # Roda o Spleeter
-    result = subprocess.run(
+    spleeter_result = subprocess.run(
         [spleeter_python, spleeter_script, mp3_path, output_dir],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True
-)
+    )
 
-    if result.returncode != 0:
+    if spleeter_result.returncode != 0:
         print("❌ Spleeter error:")
-        print(result.stderr)
+        print(spleeter_result.stderr)
         raise HTTPException(status_code=500, detail="Spleeter failed")
 
-
-    # Caminhos dos arquivos gerados
-    song_folder = Path(mp3_path).stem
     vocals_path = Path(output_dir) / song_folder / "vocals.wav"
     instrumental_path = Path(output_dir) / song_folder / "accompaniment.wav"
 
-    # Upload do instrumental.wav
     with open(instrumental_path, "rb") as f:
         supabase.storage.from_("karaoke-songs").upload(
             path=f"{id}/instrumental.wav",
@@ -129,18 +120,52 @@ async def separate_song(id: str = Form(...), filename: str = Form(...)):
 
     instrumental_url = f"{SUPABASE_URL}/storage/v1/object/public/karaoke-songs/{id}/instrumental.wav"
 
-    # Atualiza a tabela
+    lyrics_path = Path(output_dir) / song_folder / "lyrics.json"
+    whisper_python = os.path.join(os.getcwd(), "whisper-env", "bin", "python")
+    whisper_script = os.path.join(os.getcwd(), "run_whisper.py")
+
+    boosted_vocals_path = vocals_path.with_name("vocals_louder.wav")
+    subprocess.run([
+        "ffmpeg", "-y", "-i", str(vocals_path),
+        "-filter:a", "volume=2.0",
+        str(boosted_vocals_path)
+    ], check=True)
+
+    whisper_result = subprocess.run(
+        [whisper_python, whisper_script, str(boosted_vocals_path), str(lyrics_path)],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    if whisper_result.returncode != 0:
+        print("❌ Whisper error:")
+        print(whisper_result.stderr)
+        raise HTTPException(status_code=500, detail="Whisper failed")
+
+    with open(lyrics_path, "rb") as f:
+        supabase.storage.from_("karaoke-songs").upload(
+            path=f"{id}/lyrics.json",
+            file=f,
+            file_options={"content-type": "application/json"}
+        )
+
+    lyrics_url = f"{SUPABASE_URL}/storage/v1/object/public/karaoke-songs/{id}/lyrics.json"
+
     supabase.table("songs").update({
-        "instrumental_url": instrumental_url
+        "instrumental_url": instrumental_url,
+        "lyrics_json": lyrics_url
     }).match({"id": id}).execute()
 
-    # Limpeza
-    os.remove(mp3_path)
-    os.remove(instrumental_path)
-    if vocals_path.exists():
-        os.remove(vocals_path)
+    for file in [mp3_path, instrumental_path, vocals_path, lyrics_path, boosted_vocals_path]:
+        try:
+            os.remove(file)
+        except Exception:
+            pass
+   
 
     return {
         "status": "ok",
-        "instrumental_url": instrumental_url
+        "instrumental_url": instrumental_url,
+        "lyrics_json": lyrics_url
     }

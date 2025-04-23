@@ -90,6 +90,8 @@
     font-weight: bold;
     padding: 12px 24px;
     border-radius: 16px;
+    min-width: 240px;
+    text-align: center;
     border: 2px solid #2a7b2a;
     font-family: Helvetica, Arial, sans-serif;
     cursor: pointer;

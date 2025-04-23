@@ -15,8 +15,9 @@
 .DS_Store
 Thumbs.db
 
-# VSCode
+# VSCode / IDEs
 .vscode/
+.idea/
 
 # Logs
 *.log
@@ -24,54 +25,26 @@ Thumbs.db
 # Vercel
 .vercel
 
-**/venv/
-**/.venv/
-
-# Env
-.env
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.so
-*.egg-info/
+# Env and DB
 .env
 *.env
 *.sqlite3
 
-# Virtual envs
+# Virtual Envs
 venv/
 spleeter-env/
+whisper-env/
 
-# Node
-node_modules/
-.next/
-out/
-dist/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-pnpm-debug.log
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Temporary files
+# Audio
 *.mp3
 *.wav
 *.ogg
 *.flac
 *.m4a
 /tmp/
-*.log
-
-# VSCode / IDEs
-.vscode/
-.idea/
 
 # Supabase cache (optional)
 .supabase/
 
+# Model Checkpoints (if any)
 canere-backend/pretrained_models/
