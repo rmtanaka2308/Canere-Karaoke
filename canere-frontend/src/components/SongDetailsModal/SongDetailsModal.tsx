@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { deleteSong } from '@/app/services/dbServices'
 import ConfirmDeleteModal from '@/components/ConfirmDeleteModal/ConfirmDeleteModal'
 import styles from './SongDetailsModal.module.css'
+import MenuButton from '../MenuButton/MenuButton'
 
 interface Song {
     id: string
@@ -61,7 +62,10 @@ export default function SongDetailsModal({ song, onClose, onDelete }: Props) {
                 </p>
 
                 <p><strong>Lyrics:</strong></p>
-                <pre>{song.lyrics_json || 'Not yet transcribed'}</pre>
+                {/* <pre>{song.lyrics_json || 'Not yet transcribed'}</pre> */}
+                <MenuButton content="View Lyrics" path={`/lyrics?id=${song.id}`} />
+
+
                 <p><strong>Created at:</strong> {formatDate(song.created_at)}</p>
 
                 <button className={styles.deleteButton} onClick={() => setShowConfirm(true)}>🗑 Delete Song</button>

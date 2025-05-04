@@ -47,4 +47,17 @@ export async function deleteSong(id: string){
   }
 }
 
+export async function getSongById(id:string | null) {
+  try {
+    const res = await fetch(`http://localhost:8000/song-by-id?id=${id}`,{
+      method: "GET"
+    })
+    if (!res.ok) throw new Error("Failed to find song")
+    const data  = await res.json()
+    return data
+    } catch(error){
+    console.log("Get error: ",error)
+  }
+  
+}
 

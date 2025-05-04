@@ -1,0 +1,169 @@
+.container {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #3498db, #1a5276);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    background-color: rgba(52, 152, 219, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    border: 1px solid rgba(133, 193, 233, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    color: #f9ca24;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.lyricsContainer {
+    background-color: rgba(173, 216, 230, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(133, 193, 233, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    margin-bottom: 2rem;
+}
+
+.lyricLine {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border: 1px dashed rgba(133, 193, 233, 0.3);
+    transition: all 0.3s ease;
+}
+
+.lyricLine:hover {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-color: rgba(133, 193, 233, 0.6);
+}
+
+.wordsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.draggableWord {
+    background-color: rgba(249, 202, 36, 0.15);
+    border: 1px solid rgba(249, 202, 36, 0.3);
+    color: #f0f8ff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: move;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+.draggableWord:hover {
+    background-color: rgba(249, 202, 36, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dragging {
+    opacity: 0.4;
+    background-color: rgba(52, 152, 219, 0.3);
+}
+
+.wordInput {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #2c3e50;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 1.1rem;
+    width: 100%;
+    min-width: 50px;
+}
+
+.controls {
+    background-color: rgba(52, 152, 219, 0.3);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    border: 1px solid rgba(133, 193, 233, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+}
+
+.saveButton {
+    background-color: rgba(249, 202, 36, 0.3);
+    color: white;
+    border: 1px solid rgba(249, 202, 36, 0.5);
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.saveButton:hover {
+    background-color: rgba(249, 202, 36, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #f9ca24;
+    font-size: 1.5rem;
+    background: linear-gradient(to bottom, #3498db, #1a5276);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Decorative Elements */
+.container::before {
+    content: '';
+    position: fixed;
+    top: 10%;
+    left: 5%;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(249, 202, 36, 0.1);
+    border-radius: 50%;
+    filter: blur(30px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.container::after {
+    content: '';
+    position: fixed;
+    bottom: 15%;
+    right: 10%;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(52, 152, 219, 0.15);
+    border-radius: 50%;
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+}

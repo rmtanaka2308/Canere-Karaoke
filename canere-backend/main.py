@@ -69,6 +69,14 @@ def get_songs(page: int = Query(1, ge=1), limit: int = Query(15, le=100)):
 
     return response.data
 
+@app.get("/song-by-id")
+def get_song_by_id(id:str = Query(...)):
+    try: 
+        song = supabase.table("songs").select().match({"id":id}).execute()
+        return {"status" : "ok", "song": song}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail= str(e))
+
 
 @app.delete("/delete")
 def delete_song(id: str = Query(...)):
